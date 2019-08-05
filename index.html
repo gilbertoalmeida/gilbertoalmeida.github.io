@@ -1,15 +1,26 @@
 <!DOCTYPE html>
 <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<head><style>
+	div {
+	position: absolute;
+	top: 10px;
+	width: 100%;
+	text-align: center;
+	z-index: 100;
+	display:block;
+	font-size: 30px;
+}
+
+</style></head>
 <!-- three.js library -->
 <script src='vendor/three.js/build/three.min.js'></script>
 <!-- ar.js -->
 <script src="js/ar.js"></script>
 
-<body style='margin : 0px; overflow: hidden; font-family: Monospace;'><div style='position: absolute; top: 10px; width:100%; text-align: center; z-index: 1;'>
-	<a href="https://github.com/jeromeetienne/AR.js/" target="_blank">AR.js</a> - three.js camera transform
-	<br/>
-	Contact me any time at <a href='https://twitter.com/jerome_etienne' target='_blank'>@jerome_etienne</a>
-</div><script>
+<body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
+	<div>Wooowww <br> Sooo coooollll!</div>
+
+    <script>
 	//////////////////////////////////////////////////////////////////////////////////
 	//		Init
 	//////////////////////////////////////////////////////////////////////////////////
@@ -98,23 +109,24 @@
 	//		add an object in the scene
 	//////////////////////////////////////////////////////////////////////////////////
 	// add a torus knot
-	var geometry	= new THREE.CubeGeometry(1,1,1);
-	var material	= new THREE.MeshNormalMaterial({
-		transparent : true,
-		opacity: 0.5,
-		side: THREE.DoubleSide
-	});
-	var mesh	= new THREE.Mesh( geometry, material );
-	mesh.position.y	= geometry.parameters.height/2
-	scene.add( mesh );
-	var geometry	= new THREE.TorusKnotGeometry(0.3,0.1,64,16);
-	var material	= new THREE.MeshNormalMaterial();
-	var mesh	= new THREE.Mesh( geometry, material );
-	mesh.position.y	= 0.5
-	scene.add( mesh );
-	onRenderFcts.push(function(delta){
-		mesh.rotation.x += Math.PI*delta
-	})
+	var material = new THREE.LineBasicMaterial( { color: 0x0000ff } );
+	var geometry = new THREE.Geometry();
+	geometry.vertices.push(new THREE.Vector3( -5, 0, 0) );
+	geometry.vertices.push(new THREE.Vector3( 0, 5, 0) );
+	geometry.vertices.push(new THREE.Vector3( 5, 0, 0) );
+	geometry.vertices.push(new THREE.Vector3( 0, -5, 0) );
+	geometry.vertices.push(new THREE.Vector3( -5, 0, 0) );
+
+
+	var line = new THREE.Line( geometry, material );
+
+	scene.add(line) 
+
+	let geometry2 = new THREE.BoxGeometry( 3, 3, 3 );
+	let material2 = new THREE.MeshBasicMaterial( { color: 0X4287f5 } );
+	let cube = new THREE.Mesh( geometry2, material2 );
+
+	scene.add( cube );
 	//////////////////////////////////////////////////////////////////////////////////
 	//		render the whole thing on the page
 	//////////////////////////////////////////////////////////////////////////////////
@@ -127,6 +139,10 @@
 	requestAnimationFrame(function animate(nowMsec){
 		// keep looping
 		requestAnimationFrame( animate );
+
+		cube.rotation.z += 0.01;
+        cube.rotation.x += 0.01;
+
 		// measure time
 		lastTimeMsec	= lastTimeMsec || nowMsec-1000/60
 		var deltaMsec	= Math.min(200, nowMsec - lastTimeMsec)
