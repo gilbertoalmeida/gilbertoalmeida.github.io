@@ -20,7 +20,7 @@
 		</style>
 	</head>
 	<body>
-        <div id="info">WTF</div>
+        <div id="info">pl</div>
         
 		<script src="js/three.js"></script>
 		<script>
@@ -30,7 +30,7 @@
             document.body.appendChild( renderer.domElement );
 
             var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 500 );
-            camera.position.set( 0, 0, 100 );
+            camera.position.set( 0, 0, 40 );
             camera.lookAt( 0, 0, 0 );
 
             var scene = new THREE.Scene();
@@ -47,26 +47,19 @@
             var line = new THREE.Line( geometry, material );
 
             scene.add(line) 
-            
-            
-            /*  let scene = new THREE.Scene();
-            let camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
-            let renderer = new THREE.WebGLRenderer();
-            renderer.setSize( window.innerWidth, window.innerHeight );
-            document.body.appendChild( renderer.domElement );
-
-            let geometry = new THREE.BoxGeometry( 2, 2, 2 );
-            let material = new THREE.MeshBasicMaterial( { color: 0X4287f5 } );
-            let cube = new THREE.Mesh( geometry, material );
+            let geometry2 = new THREE.BoxGeometry( 5, 5, 5 );
+            let material2 = new THREE.MeshBasicMaterial( { color: 0X4287f5 } );
+            let cube = new THREE.Mesh( geometry2, material2 );
 
             scene.add( cube );
-
-            camera.position.z = 15;  */
 
             function animate() {
                 requestAnimationFrame( animate );
                 renderer.render( scene, camera );
+
+                cube.rotation.z += 0.01;
+                cube.rotation.x += 0.01;
             }
             animate();
         </script>
